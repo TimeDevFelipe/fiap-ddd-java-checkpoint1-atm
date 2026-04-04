@@ -67,6 +67,82 @@ public class FiapBankAtm {
             return;
         }
 
+        // fase b - menu principal em loop
+        // saldo comeca em zero conforme o enunciado
+        double saldo = 0.0;
+        int opcao = 0;
+
+        while (opcao != 4) {
+            System.out.println("\n=== menu principal ===");
+            System.out.println("[ 1 ] consultar saldo");
+            System.out.println("[ 2 ] fazer deposito");
+            System.out.println("[ 3 ] fazer saque");
+            System.out.println("[ 4 ] sair");
+            System.out.print("escolha uma opcao: ");
+
+            // verifica se o usuario digitou um numero valido
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("opcao invalida! digite um numero entre 1 e 4");
+                scanner.nextLine();
+                continue;
+            }
+
+            // fase c - operacoes bancarias
+            if (opcao == 1) {
+                // exibe o saldo com duas casas decimais
+                System.out.printf("seu saldo atual e: R$ %.2f%n", saldo);
+
+            } else if (opcao == 2) {
+                System.out.print("digite o valor do deposito: R$ ");
+
+                if (scanner.hasNextDouble()) {
+                    double valorDeposito = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    // nao permite deposito de valor negativo ou zero
+                    if (valorDeposito <= 0) {
+                        System.out.println("valor invalido! o deposito precisa ser maior que zero");
+                    } else {
+                        saldo = saldo + valorDeposito;
+                        System.out.printf("deposito realizado! novo saldo: R$ %.2f%n", saldo);
+                    }
+                } else {
+                    System.out.println("valor invalido! digite um numero");
+                    scanner.nextLine();
+                }
+
+            } else if (opcao == 3) {
+                System.out.print("digite o valor do saque: R$ ");
+
+                if (scanner.hasNextDouble()) {
+                    double valorSaque = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    // validacoes do saque
+                    if (valorSaque <= 0) {
+                        System.out.println("valor invalido! o saque precisa ser maior que zero");
+                    } else if (valorSaque > saldo) {
+                        System.out.printf("saldo insuficiente! seu saldo atual e: R$ %.2f%n", saldo);
+                    } else {
+                        saldo = saldo - valorSaque;
+                        System.out.printf("saque realizado! novo saldo: R$ %.2f%n", saldo);
+                    }
+                } else {
+                    System.out.println("valor invalido! digite um numero");
+                    scanner.nextLine();
+                }
+
+            } else if (opcao == 4) {
+                System.out.println("o FIAP Bank agradece sua preferencia!");
+
+            } else {
+                System.out.println("opcao invalida! escolha entre 1 e 4");
+            }
+        }
+
         scanner.close();
     }
 }
