@@ -69,7 +69,7 @@ public class FiapBankAtm {
 
         // fase b - menu principal em loop
         // saldo comeca em zero conforme o enunciado
-        double saldo = 0.0;
+        double saldo = 250.0;
         int opcao = 0;
 
         while (opcao != 4) {
